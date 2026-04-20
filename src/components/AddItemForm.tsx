@@ -32,7 +32,7 @@ export default function AddItemForm({ onAdd }: AddItemFormProps) {
         value={title}
         maxLength={TITLE_MAX_LENGTH}
         onChange={(event) => setTitle(event.target.value)}
-        placeholder="Add an item"
+        placeholder="输入新任务…"
         className="flex-1 rounded-[8px] border border-zinc-300 bg-white px-3 py-2 text-sm outline-none focus:border-zinc-500"
       />
       <button
@@ -40,7 +40,7 @@ export default function AddItemForm({ onAdd }: AddItemFormProps) {
         disabled={isSubmitting}
         className="rounded-[8px] border border-zinc-300 bg-white px-3 py-2 text-sm disabled:opacity-60"
       >
-        Add
+        添加
       </button>
     </form>
   );

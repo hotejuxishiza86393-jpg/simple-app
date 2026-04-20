@@ -16,6 +16,7 @@ export default function TodoItem({ item, onToggle, onDelete }: TodoItemProps) {
           type="checkbox"
           checked={item.completed}
           onChange={() => void onToggle(item)}
+          aria-label="标记任务为已完成"
           className="h-4 w-4"
         />
         <span
@@ -32,7 +33,7 @@ export default function TodoItem({ item, onToggle, onDelete }: TodoItemProps) {
         onClick={() => void onDelete(item.id)}
         className="rounded-[8px] border border-zinc-200 px-2 py-1 text-xs text-zinc-600"
       >
-        Delete
+        删除
       </button>
     </li>
   );

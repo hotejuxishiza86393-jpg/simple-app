@@ -31,7 +31,7 @@ export default function Home() {
       try {
         await loadItems();
       } catch (err) {
-        setError(err instanceof Error ? err.message : "Failed to load items.");
+        setError(err instanceof Error ? err.message : "加载任务失败。");
       } finally {
         setIsLoading(false);
       }
@@ -46,7 +46,7 @@ export default function Home() {
     try {
       await loadItems();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to refresh items.");
+      setError(err instanceof Error ? err.message : "刷新任务失败。");
     } finally {
       setIsRefreshing(false);
     }
@@ -82,7 +82,7 @@ export default function Home() {
       const newItem = await createItem(title);
       setItems((prev) => [newItem, ...prev]);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to create item.");
+      setError(err instanceof Error ? err.message : "添加任务失败。");
     }
   }
 
@@ -92,7 +92,7 @@ export default function Home() {
       const updated = await updateItem(item.id, !item.completed);
       setItems((prev) => prev.map((current) => (current.id === item.id ? updated : current)));
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to update item.");
+      setError(err instanceof Error ? err.message : "更新任务失败。");
     }
   }
 
@@ -102,7 +102,7 @@ export default function Home() {
       await deleteItem(id);
       setItems((prev) => prev.filter((item) => item.id !== id));
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to delete item.");
+      setError(err instanceof Error ? err.message : "删除任务失败。");
     }
   }
 
@@ -119,12 +119,12 @@ export default function Home() {
           style={{ opacity: pullDistance > 0 || isRefreshing ? 1 : 0 }}
         >
           {isRefreshing
-            ? "Refreshing..."
+            ? "刷新中..."
             : pullDistance >= 70
-              ? "Release to refresh"
-              : "Pull down to refresh"}
+              ? "松开即可刷新"
+              : "下拉刷新"}
         </div>
-        <h1 className="mb-4 text-2xl text-zinc-900">Todo</h1>
+        <h1 className="mb-4 text-2xl text-zinc-900">极简待办</h1>
         <AddItemForm onAdd={handleAdd} />
         {error ? (
           <p className="mb-3 rounded-[8px] border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-600">
@@ -132,7 +132,7 @@ export default function Home() {
           </p>
         ) : null}
         {isLoading ? (
-          <p className="text-sm text-zinc-500">Loading...</p>
+          <p className="text-sm text-zinc-500">加载中...</p>
         ) : (
           <ItemList items={items} onToggle={handleToggle} onDelete={handleDelete} />
         )}

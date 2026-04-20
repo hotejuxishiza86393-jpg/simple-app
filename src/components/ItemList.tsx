@@ -10,15 +10,18 @@ type ItemListProps = {
 };
 
 export default function ItemList({ items, onToggle, onDelete }: ItemListProps) {
-  if (items.length === 0) {
-    return <p className="text-sm text-zinc-500">No items yet.</p>;
-  }
-
   return (
-    <ul className="space-y-2">
-      {items.map((item) => (
-        <TodoItem key={item.id} item={item} onToggle={onToggle} onDelete={onDelete} />
-      ))}
-    </ul>
+    <div>
+      <p className="mb-2 text-xs text-zinc-400">共 {items.length} 项</p>
+      {items.length === 0 ? (
+        <p className="text-sm text-zinc-500">暂无任务，添加一条吧</p>
+      ) : (
+        <ul className="space-y-2">
+          {items.map((item) => (
+            <TodoItem key={item.id} item={item} onToggle={onToggle} onDelete={onDelete} />
+          ))}
+        </ul>
+      )}
+    </div>
   );
 }

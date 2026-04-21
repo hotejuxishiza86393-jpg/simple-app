@@ -20,7 +20,113 @@
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: #0f1416;
+  color: #f4f6f5;
   font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("https://images.unsplash.com/photo-1473116763249-2faaef81ccda?auto=format&fit=crop&w=1950&q=80");
+  background-size: cover;
+  background-position: center;
+  z-index: -2;
+}
+
+@media (max-width: 639px) {
+  body::before {
+    /* 移动端将视觉焦点上移，尽量保留海面与天际线构图。 */
+    background-position: center 30%;
+  }
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(8, 15, 18, 0.25) 0%, rgba(8, 15, 18, 0.45) 100%);
+  z-index: -1;
+}
+
+main.min-h-screen.bg-white {
+  background: transparent !important;
+}
+
+h1.text-2xl.text-zinc-900 {
+  color: rgba(255, 255, 255, 0.92) !important;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  font-size: 2rem;
+}
+
+.tidal-fab {
+  animation: tidal-breath 2.8s ease-in-out infinite;
+}
+
+.tidal-ripple {
+  position: absolute;
+  top: 50%;
+  left: 14px;
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  border: 1.2px solid rgba(170, 193, 184, 0.6);
+  transform: translate(-50%, -50%) scale(0.4);
+  opacity: 0.9;
+  pointer-events: none;
+  animation: tidal-ripple 0.52s ease-out forwards;
+}
+
+.tidal-scroll {
+  max-height: 62vh;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  padding-right: 2px;
+}
+
+.tidal-scroll::-webkit-scrollbar {
+  width: 0;
+}
+
+.tidal-list > li {
+  animation: tidal-card-in 420ms ease both;
+}
+
+.tidal-list > li:nth-child(2n) {
+  animation-delay: 50ms;
+}
+
+.tidal-list > li:nth-child(3n) {
+  animation-delay: 90ms;
+}
+
+@keyframes tidal-breath {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes tidal-ripple {
+  to {
+    transform: translate(-50%, -50%) scale(7.5);
+    opacity: 0;
+  }
+}
+
+@keyframes tidal-card-in {
+  from {
+    transform: translateY(8px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }

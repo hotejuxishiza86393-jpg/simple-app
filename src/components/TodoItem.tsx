@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Item } from "@/src/lib/api";
 
 type TodoItemProps = {
@@ -17,20 +18,34 @@ type TodoItemProps = {
  * 返回值：React 组件节点。
  */
 export default function TodoItem({ item, onToggle, onDelete }: TodoItemProps) {
+  const [isRippling, setIsRippling] = useState(false);
+
+  function handleToggle() {
+    if (!item.completed) {
+      setIsRippling(true);
+      window.setTimeout(() => setIsRippling(false), 520);
+    }
+    void onToggle(item);
+  }
+
   return (
-    <li className="flex items-center justify-between rounded-[8px] border border-zinc-200 bg-white px-3 py-2">
+    <li className="relative overflow-hidden rounded-2xl border border-white/15 bg-white/10 px-4 py-3 backdrop-blur-md">
+      {isRippling ? <span className="tidal-ripple" /> : null}
+      <div className="flex items-center justify-between">
       <label className="flex items-center gap-3">
         <input
           type="checkbox"
           checked={item.completed}
-          onChange={() => void onToggle(item)}
+          onChange={handleToggle}
           aria-label="标记任务为已完成"
-          className="h-4 w-4"
+          className="h-4 w-4 appearance-none rounded-full border border-white/70 bg-white/10 checked:border-[#8AA79C] checked:bg-[#8AA79C]"
         />
         <span
           className={
             // 完成态使用灰色与删除线，帮助用户快速区分已完成任务。
-            item.completed ? "text-sm text-zinc-400 line-through" : "text-sm text-zinc-800"
+            item.completed
+              ? "text-sm text-white/40 line-through transition-all duration-500"
+              : "text-sm text-white/90 transition-all duration-500"
           }
         >
           {item.title}
@@ -40,10 +55,11 @@ export default function TodoItem({ item, onToggle, onDelete }: TodoItemProps) {
       <button
         type="button"
         onClick={() => void onDelete(item.id)}
-        className="rounded-[8px] border border-zinc-200 px-2 py-1 text-xs text-zinc-600"
+        className="rounded-full border border-white/15 px-3 py-1 text-[11px] tracking-wide text-white/60 transition hover:bg-white/10"
       >
         删除
       </button>
+      </div>
     </li>
   );
 }

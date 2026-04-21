@@ -19,13 +19,15 @@ type ItemListProps = {
  */
 export default function ItemList({ items, onToggle, onDelete }: ItemListProps) {
   return (
-    <div>
-      <p className="mb-2 text-xs text-zinc-400">共 {items.length} 项</p>
+    <div className="tidal-scroll">
+      <p className="mb-4 text-[11px] tracking-[0.18em] text-white/55">共 {items.length} 项</p>
       {/* 空状态单独展示，帮助用户在初始场景快速理解下一步操作。 */}
       {items.length === 0 ? (
-        <p className="text-sm text-zinc-500">暂无任务，添加一条吧</p>
+        <p className="rounded-2xl border border-white/15 bg-white/8 px-4 py-6 text-center text-sm text-white/65 backdrop-blur-sm">
+          暂无任务，添加一条吧
+        </p>
       ) : (
-        <ul className="space-y-2">
+        <ul className="tidal-list space-y-3">
           {items.map((item) => (
             <TodoItem key={item.id} item={item} onToggle={onToggle} onDelete={onDelete} />
           ))}

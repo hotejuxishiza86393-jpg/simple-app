@@ -43,18 +43,18 @@ export default function AddItemForm({ onAdd }: AddItemFormProps) {
   }
 
   return (
-    <form className="mb-4 flex gap-2" onSubmit={handleSubmit}>
+    <form className="mb-10 flex items-center gap-3 rounded-2xl border border-white/20 bg-white/10 px-3 py-3 backdrop-blur-md" onSubmit={handleSubmit}>
       <input
         value={title}
         maxLength={TITLE_MAX_LENGTH}
         onChange={(event) => setTitle(event.target.value)}
         placeholder="输入新任务…"
-        className="flex-1 rounded-[8px] border border-zinc-300 bg-white px-3 py-2 text-sm outline-none focus:border-zinc-500"
+        className="flex-1 bg-transparent px-2 py-2 text-sm text-white/90 placeholder:text-white/50 outline-none"
       />
       <button
         type="submit"
         disabled={isSubmitting}
-        className="rounded-[8px] border border-zinc-300 bg-white px-3 py-2 text-sm disabled:opacity-60"
+        className="tidal-fab rounded-full border border-white/20 bg-[#8AA79C]/90 px-5 py-2 text-sm text-white shadow-lg shadow-black/20 transition-transform active:scale-95 disabled:opacity-60"
       >
         添加
       </button>
